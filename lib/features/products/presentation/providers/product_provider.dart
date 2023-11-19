@@ -51,7 +51,6 @@ class ProductNotifier extends StateNotifier<ProductState> {
       state = state.copyWith(isLoading: false, product: product);
     } catch (e) {
       // 404 product not found
-      print(e);
     }
   }
 }
