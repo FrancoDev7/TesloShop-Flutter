@@ -40,7 +40,19 @@ class AuthNotifier extends StateNotifier<AuthState> {
     // state =state.copyWith(user: user, authStatus: AuthStatus.authenticated)
   }
 
-  void registerUser(String email, String password) async {}
+  void registerUser(String email, String password, String fullName) async {
+    try {
+      final user = await authRepository.register(email, password, fullName);
+      _setLoggedUser(user);
+    } on CustomError catch (e) {
+      // Manejo de errores específicos
+      state = state.copyWith(errorMessage: e.message);
+    } catch (e) {
+      // Manejo de errores no controlados
+      state = state.copyWith(
+          errorMessage: 'Error no controlado al registrar usuario');
+    }
+  }
 
   void checkAuthStatus() async {
     final token = await keyValueStorageService.getValue<String>('token');

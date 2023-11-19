@@ -22,14 +22,14 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 70),
+            const SizedBox(height: 90),
             // Icon Banner
             const Icon(
               Icons.production_quantity_limits_rounded,
               color: Colors.white,
               size: 100,
             ),
-            const SizedBox(height: 70),
+            const SizedBox(height: 60),
 
             Container(
               height: size.height - 260, // 80 los dos sizebox y 100 el ícono
@@ -72,9 +72,9 @@ class _LoginForm extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 40),
           Text('Iniciar Sesión', style: textStyles.titleLarge),
-          const SizedBox(height: 70),
+          const SizedBox(height: 40),
           CustomTextFormField(
             label: 'Correo',
             keyboardType: TextInputType.emailAddress,
@@ -92,13 +92,13 @@ class _LoginForm extends ConsumerWidget {
             errorMessage:
                 loginForm.isFormPosted ? loginForm.password.errorMessage : null,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 50),
           SizedBox(
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
                   text: 'Ingresar',
-                  buttonColor: Colors.black,
+                  buttonColor: const Color.fromARGB(255, 66, 184, 123),
                   onPressed: loginForm.isPosting
                       ? null
                       : ref.read(loginFormProvider.notifier).onFormSubmit)),

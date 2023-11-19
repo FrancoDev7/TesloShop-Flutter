@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:teslo_shop/features/auth/presentation/providers/providers.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -20,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 80),
+            const SizedBox(height: 50),
             // Icon Banner
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 60),
 
             Container(
               height: size.height - 260, // 80 los dos sizebox y 100 el ícono
@@ -59,49 +61,83 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatelessWidget {
+class _RegisterForm extends ConsumerWidget {
   const _RegisterForm();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final registerForm = ref.watch(registerFormProvider);
     final textStyles = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          const SizedBox(height: 50),
+          // const SizedBox( height: 30 ),
+          const Spacer(flex: 2),
           Text('Nueva cuenta', style: textStyles.titleMedium),
-          const SizedBox(height: 50),
-          const CustomTextFormField(
+          const Spacer(),
+          const SizedBox(height: 20),
+
+          CustomTextFormField(
             label: 'Nombre completo',
             keyboardType: TextInputType.emailAddress,
+            onChanged:
+                ref.read(registerFormProvider.notifier).onFullNameChanged,
+            errorMessage: registerForm.isFormPosted
+                ? registerForm.fullName.errorMessage
+                : null,
           ),
-          const SizedBox(height: 0),
-          const CustomTextFormField(
+          const SizedBox(height: 20),
+
+          CustomTextFormField(
             label: 'Correo',
             keyboardType: TextInputType.emailAddress,
+            onChanged: ref.read(registerFormProvider.notifier).onEmailChanged,
+            errorMessage: registerForm.isFormPosted
+                ? registerForm.email.errorMessage
+                : null,
           ),
           const SizedBox(height: 20),
-          const CustomTextFormField(
+
+          CustomTextFormField(
             label: 'Contraseña',
             obscureText: true,
+            onChanged:
+                ref.read(registerFormProvider.notifier).onPasswordChanged,
+            errorMessage: registerForm.isFormPosted
+                ? registerForm.password.errorMessage
+                : null,
           ),
+
           const SizedBox(height: 20),
-          const CustomTextFormField(
+
+          CustomTextFormField(
             label: 'Repita la contraseña',
             obscureText: true,
+            onChanged: ref
+                .read(registerFormProvider.notifier)
+                .onConfirmPasswordChanged,
+            errorMessage: registerForm.isFormPosted
+                ? registerForm.confirmPassword.errorMessage
+                : null,
           ),
+
           const SizedBox(height: 20),
+
           SizedBox(
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
                 text: 'Crear',
                 buttonColor: Colors.black,
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(registerFormProvider.notifier).onFormSubmit();
+                },
               )),
-          const Spacer(flex: 2),
+
+          const Spacer(flex: 1),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -116,6 +152,7 @@ class _RegisterForm extends StatelessWidget {
                   child: const Text('Ingresa aquí'))
             ],
           ),
+
           const Spacer(flex: 1),
         ],
       ),
