@@ -40,7 +40,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     // state =state.copyWith(user: user, authStatus: AuthStatus.authenticated)
   }
 
-  void register(String email, String password, String fullName) async {
+  Future<void> register(String email, String password, String fullName) async {
     try {
       final user = await authRepository.register(email, password, fullName);
       _setLoggedUser(user);
