@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:teslo_shop/features/auth/presentation/providers/providers.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
+import '../providers/auth_provider.dart';
+
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
@@ -64,10 +66,21 @@ class RegisterScreen extends StatelessWidget {
 class _RegisterForm extends ConsumerWidget {
   const _RegisterForm();
 
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final registerForm = ref.watch(registerFormProvider);
     final textStyles = Theme.of(context).textTheme;
+
+    ref.listen(authProvider, (previous, next) {
+      if (next.errorMessage.isEmpty) return;
+      showSnackbar(context, next.errorMessage);
+    });
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -131,9 +144,9 @@ class _RegisterForm extends ConsumerWidget {
               child: CustomFilledButton(
                 text: 'Crear',
                 buttonColor: Colors.black,
-                onPressed: () {
-                  ref.read(registerFormProvider.notifier).onFormSubmit();
-                },
+                onPressed: registerForm.isPosting
+                    ? null
+                    : ref.read(registerFormProvider.notifier).onFormSubmit,
               )),
 
           const Spacer(flex: 1),
