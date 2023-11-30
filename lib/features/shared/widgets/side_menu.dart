@@ -36,11 +36,11 @@ class SideMenuState extends ConsumerState<SideMenu> {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(20, hasNotch ? 0 : 20, 16, 0),
-            child: Text('Saludos', style: textStyles.titleMedium),
+            child: Text('Bienvenido', style: textStyles.titleMedium),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 16, 10),
-            child: Text('Tony Stark', style: textStyles.titleSmall),
+            child: Text('Teslo Shop', style: textStyles.titleSmall),
           ),
           const NavigationDrawerDestination(
             icon: Icon(Icons.home_outlined),
@@ -52,7 +52,7 @@ class SideMenuState extends ConsumerState<SideMenu> {
           ),
           const Padding(
             padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
-            child: Text('Otras opciones'),
+            child: Text(''),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -80,7 +80,7 @@ class ProductsDatasourceImpl extends ProductsDatasource {
 
   @override
   Future<List<Product>> getProductsByPage(
-      {int limit = 10, int offset = 0}) async {
+      {int limit = 20, int offset = 0}) async {
     final response =
         await dio.get<List>('/products?limit=$limit&offset=$offset');
     final List<Product> products = [];
@@ -93,6 +93,8 @@ class ProductsDatasourceImpl extends ProductsDatasource {
 
   @override
   Future<List<Product>> searchProductByTerm(String term) {
+    //hacer esta parte
+    
     throw UnimplementedError();
   }
 }
