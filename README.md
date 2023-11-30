@@ -1,4 +1,4 @@
-# Flutter - Authenticated CRUD App - TesloShop - Taller de Diseño y Desarrolo de Soluciones
+# Flutter - Authenticated CRUD App - TesloShop - Taller de Diseño y Desarrollo de Soluciones
 
 Este es un proyecto para trabajar con: a
 
