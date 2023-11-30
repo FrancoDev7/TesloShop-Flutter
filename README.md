@@ -2,12 +2,11 @@
 
 Este es un proyecto para trabajar con: a
 
-* Cámara
+* Flutter
 
 * CRUD (Create Read Update Delete) Rest API Endpoints
 
-
-
+* Autenticación
 
 
 # Inacap
